@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "You tolerate me (rare skill)",
         "You laugh at my bad jokes (concerning)",
         "You make everything better",
-        "You’re my favorite person ever 💖",
+        "You’re my favorite person ever",
         "You’re literally gorgeous",
         "You make my day better just by existing (no effort required)",
         "You’re illegally adorable, I’m pretty sure",
@@ -80,9 +80,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const selected = shuffled.slice(0, 3);
 
         typeText([
-            "💖 " + selected[0],
-            "💖 " + selected[1],
-            "💖 " + selected[2]
+            "💜 " + selected[0],
+            "💜 " + selected[1],
+            "💜 " + selected[2]
         ], document.getElementById("loveText"));
 
         if (firstClick) {
