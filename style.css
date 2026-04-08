@@ -82,3 +82,36 @@ input {
         opacity: 0;
     }
 }
+
+/* Final message container styling */
+#finalMessage {
+    max-width: 600px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Each typed line */
+.final-line {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Smooth fade animation */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Smaller floating hearts for final message */
+.final-heart {
+    position: absolute;
+    font-size: 14px;
+    color: #d291ff;
+    opacity: 0.6;
+    animation: floatUp 5s linear forwards;
+}
