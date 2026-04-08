@@ -123,7 +123,10 @@ document.addEventListener("DOMContentLoaded", () => {
             setTimeout(() => heart.remove(), 4000);
         }
 
-        setTimeout(() => nextScreen(6), 800);
+        setTimeout(() => {
+            nextScreen(6);
+            animateFinalMessage();
+        }, 800);
     };
 
     function animateFinalMessage() {
