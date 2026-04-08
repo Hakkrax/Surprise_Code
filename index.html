@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>For You 💖</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<audio id="bg-music" autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+
+    <!-- Screen 1 -->
+    <div class="screen active" id="screen1">
+        <h1>Hey bub 💖</h1>
+        <button onclick="nextScreen(2)">Click me (important)</button>
+    </div>
+
+    <!-- Screen 2 -->
+    <div class="screen" id="screen2">
+        <p>This is a very serious application... definitely not made because I miss you 👀</p>
+        <button onclick="nextScreen(3)">Continue (I’m curious)</button>
+    </div>
+
+    <!-- Screen 3 -->
+    <div class="screen" id="screen3">
+        <h2>Why I love you 💕</h2>
+        <p id="loveText">Click below 😤</p>
+        <button onclick="randomLove()">Again 😤</button>
+        <button onclick="nextScreen(4)">Next</button>
+    </div>
+
+    <!-- Screen 4 -->
+    <div class="screen" id="screen4">
+        <h2>Important question 🤨</h2>
+        <p>How many days did it take for us to start dating after we met?</p>
+        <input type="number" id="answer">
+        <button onclick="checkAnswer()">Submit</button>
+        <p id="response"></p>
+    </div>
+
+    <!-- Final Screen -->
+    <div class="screen" id="screen5">
+        <h1>I love you my beautiful 💖</h1>
+        <p>I made this because you mean a lot to me 🥺</p>
+        <button onclick="finalMessage()">One more thing…</button>
+        <p id="finalText"></p>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
