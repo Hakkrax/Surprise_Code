@@ -106,8 +106,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // Moving NO button
     document.getElementById("noBtn").onmouseover = () => {
         const btn = document.getElementById("noBtn");
-        btn.style.left = Math.random() * 200 + "px";
-        btn.style.top = Math.random() * 150 + "px";
+        btn.style.left = Math.random() * 2000 + "px";
+        btn.style.top = Math.random() * 1500 + "px";
     };
 
     // YES → hearts + next screen
