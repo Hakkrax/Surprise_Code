@@ -115,8 +115,23 @@ input {
 /* floating hearts */
 .final-heart {
     position: fixed;
-    font-size: 14px;
+    font-size: 16px;
     color: #d291ff;
-    opacity: 0.7;
-    animation: floatUp 5s linear forwards;
+    opacity: 0.5; /* 👈 softer */
+    pointer-events: none;
+    animation: floatUp 4s linear forwards;
+    z-index: 9999;
+}
+
+#screen6 h1 {
+    animation: glowPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes glowPulse {
+    0% {
+        text-shadow: 0 0 5px #d291ff, 0 0 10px #d291ff;
+    }
+    100% {
+        text-shadow: 0 0 15px #d291ff, 0 0 30px #d291ff;
+    }
 }
