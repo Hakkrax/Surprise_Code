@@ -145,20 +145,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function spawnHearts(element) {
-        const rect = element.getBoundingClientRect();
-
         for (let i = 0; i < 6; i++) {
             const heart = document.createElement("div");
             heart.className = "final-heart";
             heart.innerText = "💜";
 
-            // Spread hearts around the line (not stacked)
-            heart.style.left = (rect.left + Math.random() * rect.width) + "px";
-            heart.style.top = (rect.top + rect.height / 2) + "px";
+            heart.style.left = Math.random() * 90 + "%"; 
+            heart.style.top = Math.random() * 30 + "px"; 
 
-            heart.style.fontSize = (12 + Math.random() * 8) + "px";
-
-            document.body.appendChild(heart);
+            element.appendChild(heart);
 
             setTimeout(() => heart.remove(), 4000);
         }
@@ -166,23 +161,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function startHeartLoop() {
         setInterval(() => {
-            const container = document.getElementById("finalMessage");
-            if (!container) return;
-
-            const rect = container.getBoundingClientRect();
-
-            for (let i = 0; i < 6; i++) {
-                const heart = document.createElement("div");
-                heart.className = "final-heart";
-                heart.innerText = "💜";
-
-                heart.style.left = (rect.left + Math.random() * rect.width) + "px";
-                heart.style.top = (rect.top + rect.height) + "px";
-                heart.style.fontSize = (12 + Math.random() * 10) + "px";
-
-                document.body.appendChild(heart);
-
-                setTimeout(() => heart.remove(), 4000);
+        const lines = document.querySelectorAll("#finalMessage .final-line");
+        lines.forEach(line => spawnHearts(line));
             }
         }, 2000); // every 2 seconds
     }
