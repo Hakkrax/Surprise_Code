@@ -3,18 +3,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const music = document.getElementById("bg-music");
     music.volume = 0.5;
 
-    // Fix autoplay (starts after first click)
-    document.body.addEventListener("click", () => {
-        music.play().catch(() => {});
-    }, { once: true });
-
     function nextScreen(num) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         document.getElementById('screen' + num).classList.add('active');
     }
 
     // FIXED BUTTONS (this solves your issue)
-    document.getElementById("startBtn").onclick = () => nextScreen(2);
+    document.getElementById("startBtn").onclick = () => {
+        music.play().catch(() => {});
+        nextScreen(2);
     document.getElementById("to3").onclick = () => nextScreen(3);
     document.getElementById("to4").onclick = () => nextScreen(4);
 
