@@ -137,26 +137,24 @@ document.addEventListener("DOMContentLoaded", () => {
             setTimeout(() => {
                 line.classList.add("show");
                 setTimeout(() => {
-                spawnHearts(line);
-            }, 200); // delay hearts slightly after line appears
+                    spawnHearts(line);
+                }, 100); 
 
-        }, index * 500);
-    });
+            }, index * 500);
+        });
+    }
 
     function spawnHearts(element) {
         const rect = element.getBoundingClientRect();
 
-        const baseX = rect.left + rect.width / 2;
-        const baseY = rect.top + rect.height / 2;
-
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 6; i++) {
             const heart = document.createElement("div");
             heart.className = "final-heart";
             heart.innerText = "💜";
 
             // Spread hearts around the line (not stacked)
-            heart.style.left = (baseX + (Math.random() - 0.5) * 100) + "px";
-            heart.style.top = (baseY + (Math.random() - 0.5) * 20) + "px";
+            heart.style.left = (rect.left + Math.random() * rect.width) + "px";
+            heart.style.top = (rect.top + rect.height / 2) + "px";
 
             heart.style.fontSize = (12 + Math.random() * 8) + "px";
 
