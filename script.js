@@ -1,80 +1,115 @@
-function nextScreen(num) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById('screen' + num).classList.add('active');
-}
+document.addEventListener("DOMContentLoaded", () => {
 
-// CLEANED + FIXED messages
-const messages = [
-    "You’re cute (objectively true)",
-    "You tolerate me (rare skill)",
-    "You laugh at my bad jokes (concerning)",
-    "You make everything better",
-    "You’re my favorite person ever 💖",
-    "You’re literally gorgeous",
-    "You make my day better just by existing (no effort required)",
-    "You’re illegally adorable, I’m pretty sure",
-    "You’re my daily dose of happiness (side effects: smiling like an idiot)",
-    "You’re the reason my phone battery dies so fast",
-    "You make my brain go ‘aww’ on repeat",
-    "You’re my favorite notification",
-    "You’re the prettiest problem I’ve ever had",
-    "You make me forget what I was saying… constantly",
-    "You’re my comfort person (and my chaos too somehow)",
-    "You’re the best thing that ever happened to my screen time",
-    "You’re dangerously cute, I should be warned before seeing you",
-    "You’re my favorite distraction (and I’m not even mad about it)",
-    "You make everything feel lighter",
-    "You’re my ‘I can’t stop smiling’ person",
-    "You’re cuter than anything I can come up with… and that’s saying a lot",
-    "You’re my happy place in human form",
-    "You make even boring days feel special",
-    "You’re the reason I randomly smile at my phone like a weirdo",
-    "You’re too pretty to be real, honestly",
-    "You’re my favorite everything"
-];
+    const music = document.getElementById("bg-music");
 
-let firstClick = true;
+    // Fix autoplay (starts after first click)
+    document.body.addEventListener("click", () => {
+        music.play().catch(() => {});
+    }, { once: true });
 
-function randomLove() {
-    const shuffled = [...messages].sort(() => 0.5 - Math.random());
-    const selected = shuffled.slice(0, 3);
-
-    document.getElementById("loveText").innerHTML =
-        "💖 " + selected[0] + "<br>💖 " + selected[1] + "<br>💖 " + selected[2];
-
-    if (firstClick) {
-        document.getElementById("loveBtn").innerText = "Again 😤";
-        firstClick = false;
+    function nextScreen(num) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById('screen' + num).classList.add('active');
     }
-}
 
-// Answer check → now goes to screen 5 (NOT 6 anymore)
-function checkAnswer() {
-    const answer = document.getElementById("answer").value.trim().toLowerCase();
+    // FIXED BUTTONS (this solves your issue)
+    document.getElementById("startBtn").onclick = () => nextScreen(2);
+    document.getElementById("to3").onclick = () => nextScreen(3);
+    document.getElementById("to4").onclick = () => nextScreen(4);
 
-    if (answer === "20" || answer === "20 days") {
-        nextScreen(5);
-    } else {
-        document.getElementById("response").innerText = "Wrong. Try again or I cry 😭";
+    // Messages
+    const messages = [
+        "You’re cute (objectively true)",
+        "You tolerate me (rare skill)",
+        "You laugh at my bad jokes (concerning)",
+        "You make everything better",
+        "You’re my favorite person ever 💖",
+        "You’re literally gorgeous",
+        "You make my day better just by existing (no effort required)",
+        "You’re illegally adorable, I’m pretty sure",
+        "You’re my daily dose of happiness (side effects: smiling like an idiot)",
+        "You’re the reason my phone battery dies so fast",
+        "You make my brain go ‘aww’ on repeat",
+        "You’re my favorite notification",
+        "You’re the prettiest problem I’ve ever had",
+        "You make me forget what I was saying… constantly",
+        "You’re my comfort person (and my chaos too somehow)",
+        "You’re the best thing that ever happened to my screen time",
+        "You’re dangerously cute, I should be warned before seeing you",
+        "You’re my favorite distraction (and I’m not even mad about it)",
+        "You make everything feel lighter",
+        "You’re my ‘I can’t stop smiling’ person",
+        "You’re cuter than anything I can come up with… and that’s saying a lot",
+        "You’re my happy place in human form",
+        "You make even boring days feel special",
+        "You’re the reason I randomly smile at my phone like a weirdo",
+        "You’re too pretty to be real, honestly",
+        "You’re my favorite everything"
+    ];
+
+    let firstClick = true;
+
+    function typeText(text, element) {
+        element.innerHTML = "";
+        let i = 0;
+
+        function typing() {
+            if (i < text.length) {
+                element.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typing, 20);
+            }
+        }
+        typing();
     }
-}
 
-// Moving NO button
-function moveNo() {
-    const btn = document.getElementById("noBtn");
-    const container = btn.parentElement;
+    document.getElementById("loveBtn").onclick = () => {
+        const shuffled = [...messages].sort(() => 0.5 - Math.random());
+        const selected = shuffled.slice(0, 3);
 
-    const maxX = container.clientWidth - btn.offsetWidth;
-    const maxY = container.clientHeight - btn.offsetHeight;
+        typeText(
+            "💖 " + selected[0] + "\n💖 " + selected[1] + "\n💖 " + selected[2],
+            document.getElementById("loveText")
+        );
 
-    const randomX = Math.random() * maxX;
-    const randomY = Math.random() * maxY;
+        if (firstClick) {
+            document.getElementById("loveBtn").innerText = "Again 😤";
+            firstClick = false;
+        }
+    };
 
-    btn.style.left = randomX + "px";
-    btn.style.top = randomY + "px";
-}
+    // Answer check
+    document.getElementById("checkBtn").onclick = () => {
+        const answer = document.getElementById("answer").value.trim().toLowerCase();
 
-// YES → goes to final message (screen 6)
-function yesLove() {
-    nextScreen(6);
-}
+        if (answer === "20" || answer === "20 days") {
+            nextScreen(5);
+        } else {
+            document.getElementById("response").innerText = "Wrong. Try again or I cry 😭";
+        }
+    };
+
+    // Moving NO button
+    document.getElementById("noBtn").onmouseover = () => {
+        const btn = document.getElementById("noBtn");
+        btn.style.left = Math.random() * 200 + "px";
+        btn.style.top = Math.random() * 150 + "px";
+    };
+
+    // YES → hearts + next screen
+    document.getElementById("yesBtn").onclick = () => {
+        for (let i = 0; i < 15; i++) {
+            const heart = document.createElement("div");
+            heart.className = "heart";
+            heart.innerText = "💜";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = (15 + Math.random() * 20) + "px";
+            document.body.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 4000);
+        }
+
+        setTimeout(() => nextScreen(6), 800);
+    };
+
+});
