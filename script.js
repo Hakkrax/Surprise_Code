@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    const music = document.getElementById("bg-music").volume = 0.5;;
+    const music = document.getElementById("bg-music").volume = 0.5;
+    music.volume = 0.5;
 
     // Fix autoplay (starts after first click)
     document.body.addEventListener("click", () => {
