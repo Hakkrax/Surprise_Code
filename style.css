@@ -44,3 +44,12 @@ input {
     border: none;
     text-align: center;
 }
+
+#loveText {
+    font-size: 18px;
+    line-height: 1.8;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 15px;
+    border-radius: 15px;
+    backdrop-filter: blur(5px);
+}
