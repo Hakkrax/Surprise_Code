@@ -126,4 +126,30 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => nextScreen(6), 800);
     };
 
+    function animateFinalMessage() {
+        const lines = document.querySelectorAll("#finalMessage .final-line");
+
+        lines.forEach((line, index) => {
+            setTimeout(() => {
+                line.classList.add("show");
+                spawnHearts(line);
+            }, index * 500);
+        });
+    }
+
+    function spawnHearts(element) {
+        const rect = element.getBoundingClientRect();
+
+        for (let i = 0; i < 4; i++) {
+            const heart = document.createElement("div");
+            
+            heart.className = "final-heart";
+            heart.innerText = "💜";
+            heart.style.left = rect.left + Math.random() * rect.width + "px";
+            heart.style.top = rect.top + "px";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+    }
+
 });
