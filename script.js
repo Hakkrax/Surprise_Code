@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    const music = document.getElementById("bg-music");
+    const music = document.getElementById("bg-music").volume = 0.5;;
 
     // Fix autoplay (starts after first click)
     document.body.addEventListener("click", () => {
@@ -50,32 +50,30 @@ document.addEventListener("DOMContentLoaded", () => {
     let firstClick = true;
 
     function typeText(lines, element) {
-    element.innerHTML = "";
-    let lineIndex = 0;
+        element.innerHTML = "";
+        let lineIndex = 0;
 
-    function typeLine() {
-        if (lineIndex >= lines.length) return;
+        function typeLine() {
+            if (lineIndex >= lines.length) return;
 
-        let i = 0;
-        const line = document.createElement("div");
-        element.appendChild(line);
+            let i = 0;
+            const line = document.createElement("div");
+            element.appendChild(line);
 
-        function typing() {
-            if (i < lines[lineIndex].length) {
-                line.innerHTML += lines[lineIndex].charAt(i);
-                i++;
-                setTimeout(typing, 20);
-            } else {
-                lineIndex++;
-                setTimeout(typeLine, 200); // small delay between lines
+            function typing() {
+                if (i < lines[lineIndex].length) {
+                    line.innerHTML += lines[lineIndex].charAt(i);
+                    i++;
+                    setTimeout(typing, 20);
+                } else {
+                    lineIndex++;
+                    setTimeout(typeLine, 200); // small delay between lines
+                }
             }
+            typing();
         }
-
-        typing();
+        typeLine();
     }
-
-    typeLine();
-}
 
     document.getElementById("loveBtn").onclick = () => {
         const shuffled = [...messages].sort(() => 0.5 - Math.random());
