@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-
     const music = document.getElementById("bg-music");
     music.volume = 0.5;
 
@@ -8,14 +7,17 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById('screen' + num).classList.add('active');
     }
 
-    // FIXED BUTTONS (this solves your issue)
+    // START BUTTON: plays music + goes to next screen
     document.getElementById("startBtn").onclick = () => {
         music.play().catch(() => {});
         nextScreen(2);
+    };
+
+    // Other screen buttons
     document.getElementById("to3").onclick = () => nextScreen(3);
     document.getElementById("to4").onclick = () => nextScreen(4);
 
-    // Messages
+    // Love messages
     const messages = [
         "You’re cute (objectively true)",
         "You tolerate me (rare skill)",
@@ -65,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     setTimeout(typing, 20);
                 } else {
                     lineIndex++;
-                    setTimeout(typeLine, 200); // small delay between lines
+                    setTimeout(typeLine, 200);
                 }
             }
             typing();
@@ -73,6 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
         typeLine();
     }
 
+    // Love button
     document.getElementById("loveBtn").onclick = () => {
         const shuffled = [...messages].sort(() => 0.5 - Math.random());
         const selected = shuffled.slice(0, 3);
@@ -92,7 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Answer check
     document.getElementById("checkBtn").onclick = () => {
         const answer = document.getElementById("answer").value.trim().toLowerCase();
-
         if (answer === "20" || answer === "20 days") {
             nextScreen(5);
         } else {
@@ -107,16 +109,17 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.style.top = Math.random() * 175 + "px";
     };
 
-    // YES → hearts + next screen
+    // YES → hearts + final screen
     document.getElementById("yesBtn").onclick = () => {
+        // initial burst
         for (let i = 0; i < 15; i++) {
             const heart = document.createElement("div");
             heart.className = "heart";
             heart.innerText = "💜";
             heart.style.left = Math.random() * 100 + "vw";
             heart.style.fontSize = (15 + Math.random() * 20) + "px";
+            heart.style.opacity = 0.6;
             document.body.appendChild(heart);
-
             setTimeout(() => heart.remove(), 4000);
         }
 
@@ -127,41 +130,39 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 800);
     };
 
+    // Animate final message with hearts per line
     function animateFinalMessage() {
         const lines = document.querySelectorAll("#finalMessage .final-line");
 
         lines.forEach((line, index) => {
             setTimeout(() => {
                 line.classList.add("show");
-                setTimeout(() => {
-                    spawnHearts(line);
-                }, 100); 
-
+                spawnHearts(line);
             }, index * 500);
         });
     }
 
     function spawnHearts(element) {
+        const rect = element.getBoundingClientRect();
         for (let i = 0; i < 6; i++) {
             const heart = document.createElement("div");
             heart.className = "final-heart";
             heart.innerText = "💜";
-
-            heart.style.left = Math.random() * 90 + "%"; 
-            heart.style.top = Math.random() * 30 + "px"; 
-
-            element.appendChild(heart);
-
+            heart.style.left = rect.left + Math.random() * rect.width + "px";
+            heart.style.top = rect.top + Math.random() * rect.height + "px";
+            heart.style.fontSize = (12 + Math.random() * 8) + "px";
+            heart.style.opacity = 0.5 + Math.random() * 0.3;
+            document.body.appendChild(heart);
             setTimeout(() => heart.remove(), 4000);
         }
     }
 
+    // Hearts loop for final screen
     function startHeartLoop() {
         setInterval(() => {
-        const lines = document.querySelectorAll("#finalMessage .final-line");
-        lines.forEach(line => spawnHearts(line));
-            }
-        }, 2000); // every 2 seconds
+            const lines = document.querySelectorAll("#finalMessage .final-line");
+            lines.forEach(line => spawnHearts(line));
+        }, 2000);
     }
 
 });
