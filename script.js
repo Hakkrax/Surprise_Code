@@ -126,6 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
             nextScreen(6);
             animateFinalMessage();
+            startHeartLoop();
         }, 800);
     };
 
@@ -153,6 +154,29 @@ document.addEventListener("DOMContentLoaded", () => {
             document.body.appendChild(heart);
             setTimeout(() => heart.remove(), 5000);
         }
+    }
+
+    function startHeartLoop() {
+        setInterval(() => {
+            const container = document.getElementById("finalMessage");
+            if (!container) return;
+
+            const rect = container.getBoundingClientRect();
+
+            for (let i = 0; i < 6; i++) {
+                const heart = document.createElement("div");
+                heart.className = "final-heart";
+                heart.innerText = "💜";
+
+                heart.style.left = (rect.left + Math.random() * rect.width) + "px";
+                heart.style.top = (rect.top + rect.height) + "px";
+                heart.style.fontSize = (12 + Math.random() * 10) + "px";
+
+                document.body.appendChild(heart);
+
+                setTimeout(() => heart.remove(), 4000);
+            }
+        }, 2000); // every 2 seconds
     }
 
 });
