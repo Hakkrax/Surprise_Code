@@ -49,28 +49,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let firstClick = true;
 
-    function typeText(text, element) {
-        element.innerHTML = "";
+    function typeText(lines, element) {
+    element.innerHTML = "";
+    let lineIndex = 0;
+
+    function typeLine() {
+        if (lineIndex >= lines.length) return;
+
         let i = 0;
+        const line = document.createElement("div");
+        element.appendChild(line);
 
         function typing() {
-            if (i < text.length) {
-                element.innerHTML += text.charAt(i);
+            if (i < lines[lineIndex].length) {
+                line.innerHTML += lines[lineIndex].charAt(i);
                 i++;
                 setTimeout(typing, 20);
+            } else {
+                lineIndex++;
+                setTimeout(typeLine, 200); // small delay between lines
             }
         }
+
         typing();
     }
+
+    typeLine();
+}
 
     document.getElementById("loveBtn").onclick = () => {
         const shuffled = [...messages].sort(() => 0.5 - Math.random());
         const selected = shuffled.slice(0, 3);
 
-        typeText(
-            "💖 " + selected[0] + "\n💖 " + selected[1] + "\n💖 " + selected[2],
-            document.getElementById("loveText")
-        );
+        typeText([
+            "💖 " + selected[0],
+            "💖 " + selected[1],
+            "💖 " + selected[2]
+        ], document.getElementById("loveText"));
 
         if (firstClick) {
             document.getElementById("loveBtn").innerText = "Again 😤";
