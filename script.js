@@ -1,23 +1,24 @@
 document.addEventListener("DOMContentLoaded", () => {
+
     const music = document.getElementById("bg-music");
     music.volume = 0.5;
+
+    // Fix autoplay (starts after first click)
+    document.body.addEventListener("click", () => {
+        music.play().catch(() => {});
+    }, { once: true });
 
     function nextScreen(num) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         document.getElementById('screen' + num).classList.add('active');
     }
 
-    // START BUTTON: plays music + goes to next screen
-    document.getElementById("startBtn").onclick = () => {
-        music.play().catch(() => {});
-        nextScreen(2);
-    };
-
-    // Other screen buttons
+    // FIXED BUTTONS (this solves your issue)
+    document.getElementById("startBtn").onclick = () => nextScreen(2);
     document.getElementById("to3").onclick = () => nextScreen(3);
     document.getElementById("to4").onclick = () => nextScreen(4);
 
-    // Love messages
+    // Messages
     const messages = [
         "You’re cute (objectively true)",
         "You tolerate me (rare skill)",
@@ -67,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     setTimeout(typing, 20);
                 } else {
                     lineIndex++;
-                    setTimeout(typeLine, 200);
+                    setTimeout(typeLine, 200); // small delay between lines
                 }
             }
             typing();
@@ -75,7 +76,6 @@ document.addEventListener("DOMContentLoaded", () => {
         typeLine();
     }
 
-    // Love button
     document.getElementById("loveBtn").onclick = () => {
         const shuffled = [...messages].sort(() => 0.5 - Math.random());
         const selected = shuffled.slice(0, 3);
@@ -95,6 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Answer check
     document.getElementById("checkBtn").onclick = () => {
         const answer = document.getElementById("answer").value.trim().toLowerCase();
+
         if (answer === "20" || answer === "20 days") {
             nextScreen(5);
         } else {
@@ -109,17 +110,16 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.style.top = Math.random() * 175 + "px";
     };
 
-    // YES → hearts + final screen
+    // YES → hearts + next screen
     document.getElementById("yesBtn").onclick = () => {
-        // initial burst
         for (let i = 0; i < 15; i++) {
             const heart = document.createElement("div");
             heart.className = "heart";
             heart.innerText = "💜";
             heart.style.left = Math.random() * 100 + "vw";
             heart.style.fontSize = (15 + Math.random() * 20) + "px";
-            heart.style.opacity = 0.6;
             document.body.appendChild(heart);
+
             setTimeout(() => heart.remove(), 4000);
         }
 
@@ -130,7 +130,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 800);
     };
 
-    // Animate final message with hearts per line
     function animateFinalMessage() {
         const lines = document.querySelectorAll("#finalMessage .final-line");
 
@@ -144,25 +143,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function spawnHearts(element) {
         const rect = element.getBoundingClientRect();
-        for (let i = 0; i < 6; i++) {
+
+        for (let i = 0; i < 4; i++) {
             const heart = document.createElement("div");
+
             heart.className = "final-heart";
             heart.innerText = "💜";
             heart.style.left = rect.left + Math.random() * rect.width + "px";
-            heart.style.top = rect.top + Math.random() * rect.height + "px";
-            heart.style.fontSize = (12 + Math.random() * 8) + "px";
-            heart.style.opacity = 0.5 + Math.random() * 0.3;
+            heart.style.top = rect.top + "px";
             document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 4000);
+            setTimeout(() => heart.remove(), 5000);
         }
     }
 
-    // Hearts loop for final screen
     function startHeartLoop() {
         setInterval(() => {
-            const lines = document.querySelectorAll("#finalMessage .final-line");
-            lines.forEach(line => spawnHearts(line));
-        }, 2000);
+            const container = document.getElementById("finalMessage");
+            if (!container) return;
+
+            const rect = container.getBoundingClientRect();
+
+            for (let i = 0; i < 6; i++) {
+                const heart = document.createElement("div");
+                heart.className = "final-heart";
+                heart.innerText = "💜";
+
+                heart.style.left = (rect.left + Math.random() * rect.width) + "px";
+                heart.style.top = (rect.top + rect.height) + "px";
+                heart.style.fontSize = (12 + Math.random() * 10) + "px";
+
+                document.body.appendChild(heart);
+
+                setTimeout(() => heart.remove(), 4000);
+            }
+        }, 2000); // every 2 seconds
     }
 
 });
