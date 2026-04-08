@@ -7,58 +7,54 @@
 </head>
 <body>
 
-<audio id="bg-music" autoplay loop>
+<audio id="bg-music" loop>
     <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <div class="container">
 
-    <!-- Screen 1 -->
     <div class="screen active" id="screen1">
         <h1>Hey bub 💖</h1>
-        <button onclick="nextScreen(2)">Click me (important)</button>
+        <button id="startBtn">Click me (important)</button>
     </div>
 
-    <!-- Screen 2 -->
     <div class="screen" id="screen2">
         <p>This is a very serious application... definitely not made because I miss you 👀</p>
-        <button onclick="nextScreen(3)">Continue (I’m curious)</button>
+        <button id="to3">Continue (I’m curious)</button>
     </div>
 
-    <!-- Screen 3 -->
     <div class="screen" id="screen3">
         <h2>Why I love you 💕</h2>
         <p id="loveText">Press the button 😤</p>
-        <button id="loveBtn" onclick="randomLove()">Press me</button>
-        <button onclick="nextScreen(4)">Next</button>
+        <button id="loveBtn">Press me</button>
+        <button id="to4">Next</button>
     </div>
 
-    <!-- Screen 4 -->
     <div class="screen" id="screen4">
         <h2>Important question 🤨</h2>
         <p>How many days did it take for us to start dating after we met?</p>
-        <input type="text" id="answer" placeholder="Enter answer...">
-        <button onclick="checkAnswer()">Submit</button>
+        <input type="text" id="answer">
+        <button id="checkBtn">Submit</button>
         <p id="response"></p>
     </div>
 
-    <!-- Screen 5 (NOW the funny one) -->
     <div class="screen" id="screen5">
         <h2>Do you love me? 🥺</h2>
         <div class="love-buttons">
-            <button onclick="yesLove()">Yes 💖</button>
-            <button id="noBtn" onmouseover="moveNo()">No 😒</button>
+            <button id="yesBtn">Yes 💖</button>
+            <button id="noBtn">No 😒</button>
         </div>
     </div>
 
-    <!-- Screen 6 (FINAL MESSAGE) -->
     <div class="screen" id="screen6">
         <h1>I love you my beautiful 💖</h1>
-        <p>I made this because you mean a lot to me 🥺</p>
+        <p>I made this because you mean a lot to me and i wanted to do something to try to make you happy</p>
+        <p>I hope I can be the best boyfriend for you becasue you deserve that and more</p>
+        <p>(FYI: I'm not the best at making things look pretty with html and css so i hope you can excuse the shitty style)</p>
     </div>
 
 </div>
 
-<script src="script.js" defer></script>
+<script src="script.js"></script>
 </body>
 </html>
